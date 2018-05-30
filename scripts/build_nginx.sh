@@ -36,10 +36,10 @@ echo "Downloading $zlib_url"
 (
   cd nginx-${NGINX_VERSION}
   ./configure \
-    --with-http_auth_request_module \
     --with-pcre=pcre-${PCRE_VERSION} \
     --with-zlib=zlib-${ZLIB_VERSION} \
     --prefix=/tmp/nginx \
+    --with-http_auth_request_module \
     --with-http_gzip_static_module \
     --with-http_ssl_module \
     --with-threads \
