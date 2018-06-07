@@ -81,90 +81,15 @@ Here are 2 setup examples. One example for a new app, another for an existing ap
 
 ### Existing App
 
-Update Buildpacks
-```bash
-$ heroku config:set BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
-$ echo 'https://github.com/ryandotsmith/nginx-buildpack.git' >> .buildpacks
-$ echo 'https://codon-buildpacks.s3.amazonaws.com/buildpacks/heroku/ruby.tgz' >> .buildpacks
-$ git add .buildpacks
-$ git commit -m 'Add multi-buildpack'
-```
 Update Procfile:
 ```
-web: bin/start-nginx bundle exec unicorn -c config/unicorn.rb
-```
-```bash
-$ git add Procfile
-$ git commit -m 'Update procfile for NGINX buildpack'
-```
-Update Unicorn Config
-```ruby
-require 'fileutils'
-listen '/tmp/nginx.socket'
-before_fork do |server,worker|
-	FileUtils.touch('/tmp/app-initialized')
-end
-```
-```bash
-$ git add config/unicorn.rb
-$ git commit -m 'Update unicorn config to listen on NGINX socket.'
-```
-Deploy Changes
-```bash
-$ git push heroku master
+web: bin/start-nginx bundle exec <your app script>
 ```
 
-### New App
 
-```bash
-$ mkdir myapp; cd myapp
-$ git init
+## Building Docker images
 ```
-
-**Gemfile**
-```ruby
-source 'https://rubygems.org'
-gem 'unicorn'
-```
-
-**config.ru**
-```ruby
-run Proc.new {[200,{'Content-Type' => 'text/plain'}, ["hello world"]]}
-```
-
-**config/unicorn.rb**
-```ruby
-require 'fileutils'
-preload_app true
-timeout 5
-worker_processes 4
-listen '/tmp/nginx.socket', backlog: 1024
-
-before_fork do |server,worker|
-	FileUtils.touch('/tmp/app-initialized')
-end
-```
-Install Gems
-```bash
-$ bundle install
-```
-Create Procfile
-```
-web: bin/start-nginx bundle exec unicorn -c config/unicorn.rb
-```
-Create & Push Heroku App:
-```bash
-$ heroku create --buildpack https://github.com/ddollar/heroku-buildpack-multi.git
-$ echo 'https://codon-buildpacks.s3.amazonaws.com/buildpacks/heroku/ruby.tgz' >> .buildpacks
-$ echo 'https://github.com/ryandotsmith/nginx-buildpack.git' >> .buildpacks
-$ git add .
-$ git commit -am "init"
-$ git push heroku master
-$ heroku logs -t
-```
-Visit App
-```
-$ heroku open
+$ docker build -t nginx-heroku-16 -f Dockerfile.heroku-16 .
 ```
 
 ## License
