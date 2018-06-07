@@ -33,6 +33,7 @@ echo "Downloading $pcre_tarball_url"
 echo "Downloading $zlib_url"
 (cd nginx-${NGINX_VERSION} && curl -L $zlib_url | tar xvz )
 
+echo "Running configure & make install ..."
 (
   cd nginx-${NGINX_VERSION}
   ./configure \
