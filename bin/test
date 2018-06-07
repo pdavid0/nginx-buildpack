@@ -1,0 +1,4 @@
+
+#!/usr/bin/env bash
+
+BUILD_DIR=${1:-}
