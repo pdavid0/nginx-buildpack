@@ -19,9 +19,9 @@ zlib_url=http://zlib.net/zlib-${ZLIB_VERSION}.tar.gz
 
 temp_dir=$(mktemp -d /tmp/nginx.XXXXXXXXXX)
 
-echo "Serving files from /tmp on $PORT"
+# echo "Serving files from /tmp on $PORT"
 cd /tmp
-python -m SimpleHTTPServer $PORT &
+# python -m SimpleHTTPServer $PORT &
 
 cd $temp_dir
 echo "Temp dir: $temp_dir"
