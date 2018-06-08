@@ -82,9 +82,12 @@ Update Procfile:
 web: bin/start-nginx bundle exec <your app script>
 ```
 
-## Building Docker images
+## Building Docker images & copying nginx binary
 ```
 $ docker build -t nginx-heroku-16 -f Dockerfile.heroku-16 .
+```
+```
+$ docker run --rm -t nginx-heroku-16
 ```
 ```
 $ docker cp <container_name>:/tmp/nginx/sbin/nginx ./bin/nginx-heroku-16
