@@ -77,19 +77,17 @@ The buildpack will not start NGINX until a file has been written to `/tmp/app-in
 
 ## Setup
 
-Here are 2 setup examples. One example for a new app, another for an existing app. In both cases, we are working with ruby & unicorn. Keep in mind that this buildpack is not ruby specific.
-
-### Existing App
-
 Update Procfile:
 ```
 web: bin/start-nginx bundle exec <your app script>
 ```
 
-
 ## Building Docker images
 ```
 $ docker build -t nginx-heroku-16 -f Dockerfile.heroku-16 .
+```
+```
+$ docker cp <container_name>:/tmp/nginx/sbin/nginx ./bin/nginx-heroku-16
 ```
 
 ## License
