@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
+# Abort on error
+set -e
+# Abort on unset variable
+set -u
+
 psmgr=/tmp/nginx-buildpack-wait
 rm -f $psmgr
 mkfifo $psmgr
 
 #Evaluate config to get $PORT
+echo "buildpack=nginx at=parse-config cmd=erb"
 erb config/nginx.conf.erb > config/nginx.conf
 
 n=1
