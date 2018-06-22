@@ -37,15 +37,15 @@ echo 'buildpack=nginx at=logs-initialized'
 echo 'logs redirected'
 
 #Start App Server
-(
-    # Take the command passed to this bin and start it.
-    # E.g. bin/start-nginx bundle exec unicorn -c config/unicorn.rb
-    COMMAND=${@:$n}
-    echo "buildpack=nginx at=start-app cmd=$COMMAND"
-    $COMMAND
-    echo 'app' >$psmgr
-) &
-echo 'app started'
+# (
+#     # Take the command passed to this bin and start it.
+#     # E.g. bin/start-nginx bundle exec unicorn -c config/unicorn.rb
+#     COMMAND=${@:$n}
+#     echo "buildpack=nginx at=start-app cmd=$COMMAND"
+#     $COMMAND
+#     echo 'app' >$psmgr
+# ) &
+# echo 'app started'
 
 # if [[ -z "$FORCE" ]]
 # then
@@ -60,8 +60,6 @@ echo 'app started'
 #     done
 #     echo 'buildpack=nginx at=app-initialized'
 # fi
-sleep 5
-echo 'waited 5 sec.'
 
 #Start NGINX
 (
