@@ -36,6 +36,8 @@ echo 'buildpack=nginx at=logs-initialized'
 ) &
 echo 'logs redirected'
 
+echo 'WAIT:10'
+sleep 10
 #Start App Server
 # (
 #     # Take the command passed to this bin and start it.
@@ -46,6 +48,7 @@ echo 'logs redirected'
 #     echo 'app' >$psmgr
 # ) &
 # echo 'app started'
+echo 'WAITED:10'
 
 # if [[ -z "$FORCE" ]]
 # then
