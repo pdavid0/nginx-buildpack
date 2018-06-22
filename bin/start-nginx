@@ -10,8 +10,9 @@ rm -f $psmgr
 mkfifo $psmgr
 
 #Evaluate config to get $PORT
-echo "buildpack=nginx at=parse-config cmd=erb"
 erb config/nginx.conf.erb > config/nginx.conf
+echo "buildpack=nginx at=parse-config cmd=erb"
+cat config/nginx.conf
 
 n=1
 while getopts :f option ${@:1:2}
@@ -33,17 +34,18 @@ echo 'buildpack=nginx at=logs-initialized'
     tail -qF -n 0 logs/nginx/*.log
     echo 'logs' >$psmgr
 ) &
+echo 'logs redirected'
 
-# the rProxy does not have an app to start
-# #Start App Server
-# (
-#     # Take the command passed to this bin and start it.
-#     # E.g. bin/start-nginx bundle exec unicorn -c config/unicorn.rb
-#     COMMAND=${@:$n}
-#     echo "buildpack=nginx at=start-app cmd=$COMMAND"
-#     $COMMAND
-#     echo 'app' >$psmgr
-# ) &
+#Start App Server
+(
+    # Take the command passed to this bin and start it.
+    # E.g. bin/start-nginx bundle exec unicorn -c config/unicorn.rb
+    COMMAND=${@:$n}
+    echo "buildpack=nginx at=start-app cmd=$COMMAND"
+    $COMMAND
+    echo 'app' >$psmgr
+) &
+echo 'app started'
 
 # if [[ -z "$FORCE" ]]
 # then
@@ -58,6 +60,8 @@ echo 'buildpack=nginx at=logs-initialized'
 #     done
 #     echo 'buildpack=nginx at=app-initialized'
 # fi
+sleep 5
+echo 'waited 5 sec.'
 
 #Start NGINX
 (
@@ -67,6 +71,8 @@ echo 'buildpack=nginx at=logs-initialized'
     bin/nginx -p . -c config/nginx.conf
     echo 'nginx' >$psmgr
 ) &
+
+echo 'nginx started'
 
 #This read will block the process waiting on a msg to be put into the fifo.
 #If any of the processes defined above should exit,
