@@ -5,6 +5,9 @@ set -e
 # Abort on unset variable
 set -u
 
+echo "nginx was built with : "
+2>&1 nginx -V | tr ' '  '\n'
+
 psmgr=/tmp/nginx-buildpack-wait
 rm -f $psmgr
 mkfifo $psmgr
@@ -72,8 +75,8 @@ echo 'WAITED:5'
     echo 'nginx' >$psmgr
 ) &
 
-echo 'nginx started with: '
-bin/nginx -V
+echo 'nginx started with this config: '
+cat config/nginx.conf
 
 #This read will block the process waiting on a msg to be put into the fifo.
 #If any of the processes defined above should exit,
