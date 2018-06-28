@@ -50,6 +50,7 @@ echo "Running configure & make install ..."
     --with-http_v2_module \
     --with-file-aio \
     --with-http_realip_module \
+    --with-debug \
     --with-cc-opt='-g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2' \
     --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,--as-needed'
   make install
