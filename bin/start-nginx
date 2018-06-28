@@ -72,7 +72,8 @@ echo 'WAITED:5'
     echo 'nginx' >$psmgr
 ) &
 
-echo 'nginx started'
+echo 'nginx started with: '
+bin/nginx -V
 
 #This read will block the process waiting on a msg to be put into the fifo.
 #If any of the processes defined above should exit,
