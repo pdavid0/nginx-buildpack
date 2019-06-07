@@ -6,11 +6,11 @@
 # Our motivation for running in a web dyno is that we need a way to
 # download the binary once it is built so we can vendor it in the buildpack.
 #
-# Once the dyno has is 'up' you can open your browser and navigate
+# Once the dyno is 'up' you can open your browser and navigate
 # this dyno's directory structure to download the nginx binary.
 
-NGINX_VERSION=${NGINX_VERSION-1.14.0}
-PCRE_VERSION=${PCRE_VERSION-8.42}
+NGINX_VERSION=${NGINX_VERSION-1.17.0}
+PCRE_VERSION=${PCRE_VERSION-8.43}
 ZLIB_VERSION=${ZLIB_VERSION-1.2.11}
 
 nginx_tarball_url=http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
